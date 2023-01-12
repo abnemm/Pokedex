@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
+}
+
+interface tabela{
+  nome: string;
+  imagem: string
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -26,7 +33,48 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
+  //variaveis
   title = 'Pokedex';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+  apiURL = "https://pokeapi.co/api/v2/";
+  listaPokemon : any;
+  colunas: string[]=['Número',"Nome"]
+  dados: tabela[] = [
+    {nome: "a", imagem:"b"},
+    {nome: "a", imagem:"b"}
+  ]
+
+  //construtor
+  constructor(private http : HttpClient) {}
+
+  //funçoes
+  ngOnInit() {
+    this.funcaoListarTodosPokemons();
+    this.funcaoPreencheArray();
+  }
+
+  funcaoListarTodosPokemons() {
+    this.http.get(`${ this.apiURL }pokemon?limit=10`)
+    .subscribe((resultado: any) => {
+      this.listaPokemon = resultado.results; 
+    });        
+  }
+  
+  funcaoPreencheArray(){
+    console.log(this.listaPokemon)
+    // for (let index = 0; index < this.listaPokemon.lenght; index++) {
+    //   console.log(this.listaPokemon);
+    //   console.log(this.listaPokemon.index);
+    // }
+
+  }
+
+  a(){
+    console.log(this.listaPokemon)
+    
+  }
+
 }
+
