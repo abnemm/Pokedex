@@ -10,7 +10,8 @@ export interface PeriodicElement {
 }
 
 interface tabela{
-  nome: string;
+  numero: String,
+  nome: string,
   imagem: string
 }
 
@@ -40,11 +41,15 @@ export class AppComponent {
   dataSource = ELEMENT_DATA;
   apiURL = "https://pokeapi.co/api/v2/";
   listaPokemon : any;
-  colunas: string[]=['Número',"Nome"]
+  colunas: string[]=['Número','Nome','imagem']
+  
   dados: tabela[] = [
-    {nome: "a", imagem:"b"},
-    {nome: "a", imagem:"b"}
+    {numero: "132", nome: "Ditto", imagem:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"},
+    {numero: "4", nome: "Charmander", imagem:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"},
+    {numero: "a", nome: "Buizel", imagem:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/418.png"}
   ]
+  
+
 
   //construtor
   constructor(private http : HttpClient) {}
@@ -52,29 +57,26 @@ export class AppComponent {
   //funçoes
   ngOnInit() {
     this.funcaoListarTodosPokemons();
-    this.funcaoPreencheArray();
   }
 
   funcaoListarTodosPokemons() {
-    this.http.get(`${ this.apiURL }pokemon?limit=10`)
+    this.http.get(`${ this.apiURL }pokemon`)
     .subscribe((resultado: any) => {
-      this.listaPokemon = resultado.results; 
-    });        
+      this.listaPokemon = resultado.results;
+      console.log(resultado.results.value) 
+    });   
   }
-  
+
   funcaoPreencheArray(){
+    
+    console.log("entrou");
     console.log(this.listaPokemon)
-    // for (let index = 0; index < this.listaPokemon.lenght; index++) {
-    //   console.log(this.listaPokemon);
-    //   console.log(this.listaPokemon.index);
+
+    // for (let index = 0; this.listaPokemon.lenght < 20; index++) {
+    //   console.log("Numero", index +1);
+    //   console.log(this.listaPokemon[index].name);
     // }
 
   }
-
-  a(){
-    console.log(this.listaPokemon)
-    
-  }
-
 }
 
