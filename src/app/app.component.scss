@@ -32,7 +32,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: #CE2211;
     color: white;
     font-weight: 600;
   }
@@ -294,3 +294,21 @@
   table {
     width: 100%;
   }
+
+  mat-expansion-panel:nth-child(even) {
+    background: #919191;
+    color: #fafafa !important;
+    
+}
+
+  mat-expansion-panel:nth-child(odd) {
+  background: #F5F5F5
+}
+
+mat-accordion{
+  width: 100%;
+}
+
+app-root{
+  background-color: #1976d2;
+}
